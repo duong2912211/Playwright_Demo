@@ -1,6 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { chromium , Browser, Page , Locator} from 'playwright';
 import { expect } from '@playwright/test';
+import { pageFixture } from '../../hooks/pageFixture';
 
 let browser: Browser;
 let page: Page;
@@ -17,37 +18,34 @@ async function waitForVisibility(locator: Locator, timeout: number = 5000): Prom
 }
 
 Given('User navigate to the login page', async function () {
-    chromium.launch({ headless: false });
-    browser = await chromium.launch({ headless: false });
-    page = await browser.newPage();
-    await page.goto('https://buianthai.online/orangehrm/web/index.php'); // Replace with your login URL
+    await pageFixture.page.goto('https://buianthai.online/orangehrm/web/index.php');
   });
 
 Given('Verify that login form loaded', async function () {
-    await expect(page.locator('//input[@name="username"]')).toBeVisible();
-    await expect(page.locator('//input[@name="password"]')).toBeVisible();
-    await expect(page.locator('//button[@type="submit" and normalize-space()="Login"]')).toBeVisible();
+    await expect(pageFixture.page.locator('//input[@name="username"]')).toBeVisible();
+    await expect(pageFixture.page.locator('//input[@name="password"]')).toBeVisible();
+    await expect(pageFixture.page.locator('//button[@type="submit" and normalize-space()="Login"]')).toBeVisible();
   });   
 
 When('User enter valid username and password', async function () {
-    await page.locator('//input[@name="username"]').waitFor({ state: 'visible' });
-    await expect(page.locator('//input[@name="username"]')).toBeEnabled();
-    await page.locator('//input[@name="username"]').fill('TinaNguyen');
+    await pageFixture.page.locator('//input[@name="username"]').waitFor({ state: 'visible' });
+    await expect(pageFixture.page.locator('//input[@name="username"]')).toBeEnabled();
+    await pageFixture.page.locator('//input[@name="username"]').fill('TinaNguyen');
 
-    await page.locator('//input[@name="password"]').waitFor({ state: 'visible' });
-    await expect(page.locator('//input[@name="password"]')).toBeEnabled();
-    await page.locator('//input[@name="password"]').fill('Admin@1234');    
+    await pageFixture.page.locator('//input[@name="password"]').waitFor({ state: 'visible' });
+    await expect(pageFixture.page.locator('//input[@name="password"]')).toBeEnabled();
+    await pageFixture.page.locator('//input[@name="password"]').fill('Admin@1234');    
   });
 
 When('User click on login button', async function () {
-  await page.locator('//button[@type="submit" and normalize-space()="Login"]').waitFor({ state: 'visible' });
-  await expect(page.locator('//button[@type="submit" and normalize-space()="Login"]')).toBeEnabled();
-  await page.locator('//button[@type="submit" and normalize-space()="Login"]').click();
+  await pageFixture.page.locator('//button[@type="submit" and normalize-space()="Login"]').waitFor({ state: 'visible' });
+  await expect(pageFixture.page.locator('//button[@type="submit" and normalize-space()="Login"]')).toBeEnabled();
+  await pageFixture.page.locator('//button[@type="submit" and normalize-space()="Login"]').click();
   });
 
 Then('Verify that user redirected to the dashboard page', async function () {
-  const dashboardHeaderIsVisible = await waitForVisibility(page.locator('//h6[text()="Dashboard"]'), 5000);
-  const dashboardSideMenuIsVisible = await waitForVisibility(page.locator('//nav[@aria-label="Sidepanel"]'), 5000);
+  const dashboardHeaderIsVisible = await waitForVisibility(pageFixture.page.locator('//h6[text()="Dashboard"]'), 5000);
+  const dashboardSideMenuIsVisible = await waitForVisibility(pageFixture.page.locator('//nav[@aria-label="Sidepanel"]'), 5000);
     if (!dashboardHeaderIsVisible|| !dashboardSideMenuIsVisible) {
       throw new Error('Dashboard failed to load.');
     }
