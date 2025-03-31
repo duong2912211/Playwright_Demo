@@ -4,6 +4,8 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+    - cron: '0 2 * * *' # Runs every day at 2:00 AM UTC
 jobs:
   test:
     timeout-minutes: 60
@@ -17,11 +19,11 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Run Cucumber Playwright tests
+      run: npm test
     - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+      if: always()
       with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+        name: test-result
+        path: test-result
+        retention-days: 7
