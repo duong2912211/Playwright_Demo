@@ -1,8 +1,9 @@
 import { expect, Page } from "@playwright/test";
+import { pageFixture } from "../../hooks/pageFixture";
 
 
 export default class BasePage {
-    constructor(private page: Page) { }
+    constructor(private page :Page) { }
 
     async goto(subUrl: string) {
         await this.page.goto("https://buianthai.online/orangehrm/web/index.php" + subUrl, {
@@ -19,6 +20,7 @@ export default class BasePage {
             console.error(`Element ${locator} not visible within ${timeout ?? 2000}ms`);
             throw error;
         }
+        
     }
 
     async waitForElementEnabled(locator: string, timeout: number): Promise<void> {
