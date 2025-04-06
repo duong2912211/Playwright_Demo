@@ -19,7 +19,8 @@
             "html:reports/cucumber_report.html",
             "rerun:@rerun.txt"
         ],
-        "parallel": 1
+        "parallel": 1,
+        "tags": ""
     },
     "rerun":{
         "formatOptions": {
@@ -38,6 +39,7 @@
             "html:reports/cucumber_report.html",
             "rerun:@rerun.txt"
         ],
-        "parallel": 1
+        "parallel": 1,
+        "tags": ""
     }
 }

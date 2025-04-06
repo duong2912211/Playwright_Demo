@@ -19,10 +19,6 @@ When('User click on login button', async function () {
     await pageFixture.loginPage.clickElement('//button[@type="submit" and normalize-space()="Login"]');
 });
 
-Then('Verify that user redirected to the dashboard page', async function () {
-    // Add your verification logic here
-});
-
 When('User enter the username as {string}', async function (username) {
     await pageFixture.loginPage.fillInputField('//input[@name="username"]', username);
 });
@@ -42,3 +38,14 @@ When('User enter valid password', async function () {
 Then('Verify error message {string}', async function (errorMessage) {
     // Add your verification logic here
 });
+
+Given('User loged in as valid user', async function () {
+    await pageFixture.loginPage.navigateToLoginPage();
+    await pageFixture.loginPage.verifyLoginFormLoaded();
+    await pageFixture.loginPage.fillInputField('//input[@name="username"]', 'TinaNguyen');
+    await pageFixture.loginPage.fillInputField('//input[@name="password"]', 'Admin@1234');
+    await pageFixture.loginPage.waitForElementEnabled('//button[@type="submit" and normalize-space()="Login"]', 5000);
+    await pageFixture.loginPage.clickElement('//button[@type="submit" and normalize-space()="Login"]');
+})
+
+

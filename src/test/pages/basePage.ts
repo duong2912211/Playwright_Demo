@@ -1,7 +1,6 @@
 import { expect, Page } from "@playwright/test";
 import { pageFixture } from "../../hooks/pageFixture";
 
-
 export default class BasePage {
     constructor(private page :Page) { }
 
@@ -9,6 +8,10 @@ export default class BasePage {
         await this.page.goto("https://buianthai.online/orangehrm/web/index.php" + subUrl, {
             waitUntil: "domcontentloaded"
         });
+    }
+
+    async navigateToSubMenuPage(subMenu: string) {
+        await pageFixture.page.locator(pageFixture.adminElements.sideBarMenuItem(subMenu)).click();
     }
 
     // Wait for the element to be match with the condition
