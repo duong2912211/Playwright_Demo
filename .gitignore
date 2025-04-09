@@ -5,10 +5,8 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/test-result/
 /reports/
 cucumber-report.html
 assets
-features
 @rerun.txt
 index.html
