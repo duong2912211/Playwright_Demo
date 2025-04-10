@@ -14,7 +14,8 @@ Feature: Leave page feature
     Then Verify that the Add Leave Types form is displayed
     When User enter the "Name" is "Annual Leave"
     And User tick on option "No" of "Is Entitlement Situational?" checkbox
-    When User click on the "Save" button
+    And User click on the "Save" button
+    And User waits for 15 seconds
 
     Then Verify that the Add Leave Types form is displayed
     And Verify that the "Annual Leave" is displayed in the leave types list

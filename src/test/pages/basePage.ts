@@ -2,7 +2,7 @@ import { expect, Page } from "@playwright/test";
 import { pageFixture } from "../../hooks/pageFixture";
 
 export default class BasePage {
-    constructor(private page :Page) { }
+    constructor(protected page :Page) { }
 
     async goto(subUrl: string) {
         await this.page.goto("https://buianthai.online/orangehrm/web/index.php" + subUrl, {

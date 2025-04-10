@@ -36,7 +36,7 @@ When('User enter valid password', async function () {
 });
 
 Then('Verify error message {string}', async function (errorMessage) {
-    // Add your verification logic here
+    await pageFixture.loginPage.verifyErrorMessage(errorMessage);
 });
 
 Given('User loged in as valid user', async function () {
