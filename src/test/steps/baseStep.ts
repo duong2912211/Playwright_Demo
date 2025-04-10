@@ -35,3 +35,8 @@ When('User select {string} from dropdown top bar menu', async function (option: 
 When('User tick on option {string} of {string} checkbox', async function (option: string, checkboxTitle: string) {
   await pageFixture.basePage.clickElement(pageFixture.baseElements.checkBoxWithOptionAndTitle(checkboxTitle, option));
 })
+
+//Wait for seconds
+Given('User waits for {int} seconds', async function (seconds: number) {
+  await new Promise(resolve => setTimeout(resolve, seconds * 1000));
+});
